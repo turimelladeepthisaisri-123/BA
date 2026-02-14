@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dearest Bannu ❤️</title>
+
+<style>
+/* GLOBAL */
+html, body{
+  margin:0;
+  padding:0;
+  height:100%;
+  font-family:Segoe UI, sans-serif;
+  text-align:center;
+  color:white;
+  background:black;
+  overflow-x:hidden;
+}
+
+/* PAGE BASE */
+.page{
+  display:none;
+  min-height:100%;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-sizing:border-box;
+  padding:20px;
+  animation:fade 1s;
+}
+
+@keyframes fade{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* PAGE 1 */
+#page1{
+  background:url('background.jpg') no-repeat center center/cover;
+  background-size:cover;
+}
+
+h1{
+  background:rgba(0,0,0,0.5);
+  padding:20px;
+  border-radius:15px;
+  font-size:4rem;
+  line-height:1.3;
+  max-width:90%;
+}
+
+/* LETTER */
+.letter{
+  width:90%;
+  max-width:700px;
+  font-size:2rem;
+  line-height:1.8;
+  background:rgba(255,255,255,0.15);
+  padding:20px;
+  border-radius:15px;
+  min-height:25vh;
+  margin:20px auto;
+}
+
+.cursor{
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
+}
+
+/* MEMORIES */
+.gallery{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.gallery img{
+  width:90%;
+  max-width:500px;
+  height:auto;
+  margin:10px 0;
+  border-radius:20px;
+  box-shadow:0 0 25px pink;
+}
+
+/* BUTTONS */
+button{
+  padding:10px 20px;
+  font-size:1.8rem;
+  border:none;
+  border-radius:30px;
+  margin:15px;
+  cursor:pointer;
+  background:#ff4d6d;
+  color:white;
+}
+
+.no-btn{
+  background:white;
+  color:#ff4d6d;
+}
+
+#result{
+  font-size:2rem;
+  color:#ffccd5;
+  text-shadow:0 0 15px pink;
+  margin-top:20px;
+}
+
+/* HEART RAIN */
+.heart{
+  position:fixed;
+  top:-10px;
+  font-size:2rem;
+  animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+  to{transform:translateY(100vh);opacity:0;}
+}
+
+/* RESPONSIVE FOR MOBILE */
+@media screen and (max-width:768px){
+  h1{ font-size:3rem; padding:15px; }
+  .letter{ font-size:1.8rem; padding:15px; min-height:30vh;}
+  button{ font-size:1.6rem; padding:12px 25px; }
+  #result{ font-size:1.8rem; }
+  .gallery img{ width:95%; margin:10px 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page" style="display:flex;">
+<h1>Happy Valentine's Day Bannu ❤️</h1>
+<button onclick="next(2)">For U 💌</button>
+</div>
+
+<!-- PAGE 2 LETTER -->
+<div id="page2" class="page">
+<h2> 💖</h2>
+<div class="letter">
+<p id="loveLetter"></p><span class="cursor">|</span>
+</div>
+<br>
+<button onclick="next(3)">See Our Memories 📸</button>
+</div>
+
+<!-- PAGE 3 MEMORIES -->
+<div id="page3" class="page">
+<h2>Our Beautiful Memories 💕</h2>
+<div class="gallery">
+<img src="pic1.jpg" alt="Memory 1">
+<img src="pic2.jpg" alt="Memory 2">
+<img src="pic3.jpg" alt="Memory 3">
+</div>
+<br>
+<button onclick="next(4)">One Last Question 💍</button>
+</div>
+
+<!-- PAGE 4 PROPOSAL -->
+<div id="page4" class="page">
+<h2>Even though we don’t know what our future holds, Will you promise to stay with me forever ❤️</h2>
+<button onclick="sayYes()">YES 💖</button>
+<button onmouseover="moveNo()" class="no-btn" id="noBtn">NO 😜</button>
+<p id="result"></p>
+</div>
+
+<script>
+/* PAGE CHANGE */
+function next(n){
+  for(let i=1;i<=4;i++){
+    document.getElementById("page"+i).style.display="none";
+  }
+  document.getElementById("page"+n).style.display="flex";
+  if(n==2){ startLetter(); }
+}
+
+/* LETTER ANIMATION */
+let message =
+"I love every moment with you…\n\n\
+Every memory of us makes me smile whenever I think about it. \
+Even when you have made me cry manytimes, \
+I never wanted to lose you. \
+I chose u with all my heart, \
+with all belief and trust, hope u felt same. \
+Everything I have ever done was for you, \
+and I will do anything for you… always ❤️";
+
+let index=0;
+
+function startLetter(){
+  document.getElementById("loveLetter").innerHTML="";
+  index=0;
+  typeLetter();
+}
+
+function typeLetter(){
+  if(index < message.length){
+    let char = message.charAt(index);
+    document.getElementById("loveLetter").innerHTML +=
+      (char=="\n")?"<br>":char;
+    index++;
+    setTimeout(typeLetter,40);
+  }
+}
+
+/* YES BUTTON */
+function sayYes(){
+  document.getElementById("result").innerHTML =
+  "I promise to love you forever ❤️";
+  document.body.style.background="linear-gradient(pink,black)";
+}
+
+/* NO BUTTON RUN */
+function moveNo(){
+  let b=document.getElementById("noBtn");
+  b.style.position="absolute";
+  b.style.left=Math.random()*70+"vw";
+  b.style.top=Math.random()*70+"vh";
+}
+
+/* FALLING HEARTS */
+setInterval(function(){
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️"; // falling heart
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*20+20)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+},500);
+</script>
+
+</body>
+</html>
